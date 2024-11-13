@@ -1,0 +1,14 @@
+services:
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      - MYSQL_DATABASE=tarefas_db
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - '3308:3306'
+    volumes:
+      - data-db:/var/lib/mysql
+
+volumes:
+  data-db:

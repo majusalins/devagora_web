@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página Não Encontrada - 404</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f2f5;
+      color: #333;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 8em;
+      color: #ff6b6b;
+      animation: shake 1s ease-in-out infinite alternate;
+    }
+
+    h2 {
+      font-size: 2em;
+      color: #333;
+      margin: 20px 0;
+    }
+
+    p {
+      font-size: 1.2em;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .back-link {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 1em;
+      color: #fff;
+      background-color: #333;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-link:hover {
+      background-color: #555;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(-5px); }
+      100% { transform: translateX(5px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>404</h1>
+    <h2>Oops! Página Não Encontrada</h2>
+    <p>A URL <strong>{{url}}</strong> não pôde ser encontrada no servidor.</p>
+    <a href="/" class="back-link">Voltar para a Página Inicial</a>
+  </div>
+</body>
+</html>
