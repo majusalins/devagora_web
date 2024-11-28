@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{title}}</title>
+</head>
+<body>
+  <h1>{{title}}</h1>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users}}
+      <tr>
+        <td>{{this.nome}}</td>
+        <td>{{this.email}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <a href="/users/create">Cadastrar Novo Usuário</a>
+</body>
+</html>

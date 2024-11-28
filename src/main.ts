@@ -15,10 +15,12 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   hbsRegisterHelpers(hbs);
+
   hbsUtils(hbs).registerWatchedPartials(join(__dirname, '/views/layouts'));
+  hbs.registerPartials(join(__dirname, '/views/layouts/partials'));
+
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '/views'));
-  hbs.registerPartials(join(__dirname, '/views/layouts/partials'));
   app.setViewEngine('hbs');
 
   app.use(
@@ -28,15 +30,16 @@ async function bootstrap() {
       saveUninitialized: false,
     }),
   );
-
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(flash());
 
   app.use(flashErrors);
+
   app.useGlobalFilters(new NotFoundExceptionFilter());
 
   await app.listen(3000);
+  console.log(`Aplicação rodando em: http://localhost:3000`);
 }
 
 bootstrap();
