@@ -1,27 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{title}}</title>
-  <link rel="stylesheet" href="/src/styles.css" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-  <h1>{{title}}</h1>
-  <table border="1">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each users}}
-      <tr>
-        <td>{{this.nome}}</td>
-        <td>{{this.email}}</td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  <a href="/users/create">Cadastrar Novo Usuário</a>
+<body class="bg-gray-100">
+
+  <header class="bg-blue-600 text-white py-4">
+    <div class="container mx-auto text-center">
+      <h1 class="text-3xl font-bold">{{title}}</h1>
+    </div>
+  </header>
+
+  <main class="container mx-auto p-6">
+    <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+      <table class="min-w-full table-auto text-left">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="px-6 py-4 text-sm font-semibold text-gray-700">Nome</th>
+            <th class="px-6 py-4 text-sm font-semibold text-gray-700">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each users}}
+            <tr class="border-b hover:bg-gray-50">
+              <td class="px-6 py-4 text-sm text-gray-800">{{this.nome}}</td>
+              <td class="px-6 py-4 text-sm text-gray-800">{{this.email}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-6 text-center">
+      <a href="/users/create" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-300">Cadastrar Novo Usuário</a>
+    </div>
+  </main>
+
 </body>
 </html>

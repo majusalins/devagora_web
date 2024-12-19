@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+  <header class="bg-blue-600 text-white py-4">
+    <div class="container mx-auto text-center">
+      <h1 class="text-3xl font-bold">{{title}}</h1>
+    </div>
+  </header>
+
+  <main class="container mx-auto p-6">
+    {{#if posts.length}}
+      <ul class="space-y-6">
+        {{#each posts}}
+          <li class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <h2 class="text-2xl font-semibold text-gray-800">{{title}}</h2>
+            <p class="text-gray-600 mt-2">{{content}}</p>
+            <p class="text-gray-500 mt-2"><strong>Autor:</strong> {{author}}</p>
+            <form action="/posts/delete/{{postId}}" method="POST" class="mt-4">
+              <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition-colors duration-300">Excluir</button>
+            </form>
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <p class="text-center text-gray-600">Não há posts disponíveis.</p>
+    {{/if}}
+  </main>
+
+  <footer class="bg-gray-800 text-white py-4">
+    <div class="container mx-auto text-center">
+      <a href="/posts/create" class="text-blue-400 hover:text-blue-500">Criar um Novo Post</a>
+    </div>
+  </footer>
+
+</body>
+</html>
