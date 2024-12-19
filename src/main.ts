@@ -5,6 +5,7 @@ import * as hbs from 'hbs';
 import * as hbsUtils from 'hbs-utils';
 import * as passport from 'passport';
 import { join } from 'path';
+import * as express from 'express';
 import { AppModule } from './app.module';
 import { NotFoundExceptionFilter } from './common/filters/not-found-exception.filter';
 import { flashErrors } from './common/helpers/flash-errors';
@@ -35,6 +36,8 @@ async function bootstrap() {
   app.use(flash());
 
   app.use(flashErrors);
+
+  app.use('/public', express.static(join(__dirname, '..', 'public')));
 
   app.useGlobalFilters(new NotFoundExceptionFilter());
 
