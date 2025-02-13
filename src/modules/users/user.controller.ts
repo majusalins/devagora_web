@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Body, Render } from '@nestjs/common';
+import { Body, Controller, Get, Post, Render, Req, Res } from '@nestjs/common';
 import { TestingModuleBuilder } from '@nestjs/testing';
+import { Response } from 'express';
 
 @Controller('users')
 export class UserController {

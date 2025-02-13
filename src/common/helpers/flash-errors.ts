@@ -11,8 +11,8 @@ export const flashErrors = (req, res, next) => {
   }
 
   if (old) {
-    res.locals.odd = old;
-    req.session.odd = null;
+    res.locals.old = old;
+    req.session.old = null;
   }
 
   next();
