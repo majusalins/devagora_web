@@ -4,26 +4,27 @@ import { Response } from 'express';
 
 @Controller('users')
 export class UserController {
-    private usuarios = [];
+  private usuarios = [];
 
-    @Get()
-    @Render('users/index')
-    index(){
-        return {
-            title: 'Lista de Usuários',
-            usuarios: this.usuarios,
-        };
-    }
+  @Get()
+  @Render('users/index')
+  index() {
+    return {
+      title: 'Lista de Usuários',
+      usuarios: this.usuarios,
+    };
+  }
 
-    @Get('/create')
-    @Render('users/formulario')
-    create(){
-        return { title: 'Cadastrar Usuário' };
-    }
+  @Get('/create')
+  @Render('users/formulario')
+  create() {
+    return { title: 'Cadastrar Usuário' };
+  }
 
-    @Post('create')
-    createUsuario(@Body() usuario){
-        this.usuarios.push(usuario);
-        return { message: 'Usuário cadastrado com sucesso.' };
-    }
+  @Post('create')
+  createUsuario(@Body() usuario, @Res() res: Response) {
+    this.usuarios.push(usuario);
+    // Redirecionar para a página de listagem com uma mensagem de sucesso
+    return res.redirect('/users?success=true');
+  }
 }

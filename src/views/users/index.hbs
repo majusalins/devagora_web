@@ -1,43 +1,60 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{title}}</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100">
+<html lang='pt-BR'>
 
-  <header class="bg-blue-600 text-white py-4">
-    <div class="container mx-auto text-center">
-      <h1 class="text-3xl font-bold">{{title}}</h1>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <title>{{title}}</title>
+  <link href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css' rel='stylesheet' />
+  <link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css' />
+  <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/toastify-js'></script>
+</head>
+
+<body class='bg-gray-100'>
+
+  <header class='bg-blue-600 text-white py-4'>
+    <div class='container mx-auto text-center'>
+      <h1 class='text-3xl font-bold'>{{title}}</h1>
     </div>
   </header>
 
-  <main class="container mx-auto p-6">
-    <div class="overflow-x-auto bg-white shadow-md rounded-lg">
-      <table class="min-w-full table-auto text-left">
-        <thead class="bg-gray-200">
+  <main class='container mx-auto p-6'>
+    <div class='overflow-x-auto bg-white shadow-md rounded-lg'>
+      <table class='table-auto text-left'>
+        <thead class='bg-gray-200'>
           <tr>
-            <th class="px-6 py-4 text-sm font-semibold text-gray-700">Nome</th>
-            <th class="px-6 py-4 text-sm font-semibold text-gray-700">Email</th>
+            <th class='px-6 py-4 text-sm font-semibold text-gray-700'>Nome</th>
+            <th class='px-6 py-4 text-sm font-semibold text-gray-700'>Email</th>
           </tr>
         </thead>
         <tbody>
           {{#each users}}
-            <tr class="border-b hover:bg-gray-50">
-              <td class="px-6 py-4 text-sm text-gray-800">{{this.nome}}</td>
-              <td class="px-6 py-4 text-sm text-gray-800">{{this.email}}</td>
-            </tr>
+          <tr class='border-b hover:bg-gray-50'>
+            <td class='px-6 py-4 text-sm text-gray-800'>{{this.nome}}</td>
+            <td class='px-6 py-4 text-sm text-gray-800'>{{this.email}}</td>
+          </tr>
           {{/each}}
         </tbody>
       </table>
     </div>
 
-    <div class="mt-6 text-center">
-      <a href="/users/create" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-300">Cadastrar Novo Usuário</a>
+    <div class='mt-6 text-center'>
+      <a href='/users/create'
+        class='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-300'>Cadastrar Novo
+        Usuário</a>
     </div>
   </main>
-
 </body>
+<script>
+  urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('success') === 'true') {
+    Toastify({
+      text: "Usuário cadastrado com sucesso!", duration: 3000,
+      gravity: "bottom", position: "right", style: {
+        background:
+          "linear-gradient(to right, #00b09b, #96c93d)",
+      }, close: true
+    }).showToast();
+  }
+</script>
+
 </html>
