@@ -1,43 +1,117 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{title}}</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100">
-
-  <header class="bg-blue-600 text-white py-4">
-    <div class="container mx-auto text-center">
-      <h1 class="text-3xl font-bold">{{title}}</h1>
+{{#> main}}
+{{#*inline "content"}}
+<!-- Header com informações do usuário -->
+<div class="bg-white shadow mb-4 p-4 rounded-lg">
+  <div class="flex items-center">
+    <div class="h-12 w-12 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-xl">
+      {{#if user.nome}}
+      {{user.nome.[0]}}
+      {{else}}
+      U
+      {{/if}}
     </div>
-  </header>
-
-  <main class="container mx-auto p-6">
-    {{#if posts.length}}
-      <ul class="space-y-6">
-        {{#each posts}}
-          <li class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-            <h2 class="text-2xl font-semibold text-gray-800">{{title}}</h2>
-            <p class="text-gray-600 mt-2">{{content}}</p>
-            <p class="text-gray-500 mt-2"><strong>Autor:</strong> {{author}}</p>
-            <form action="/posts/delete/{{postId}}" method="POST" class="mt-4">
-              <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition-colors duration-300">Excluir</button>
-            </form>
-          </li>
-        {{/each}}
-      </ul>
-    {{else}}
-      <p class="text-center text-gray-600">Não há posts disponíveis.</p>
-    {{/if}}
-  </main>
-
-  <footer class="bg-gray-800 text-white py-4">
-    <div class="container mx-auto text-center">
-      <a href="/posts/create" class="text-blue-400 hover:text-blue-500">Criar um Novo Post</a>
+    <div class="ml-4">
+      <h2 class="font-bold text-lg">{{user.nome}}</h2>
+      <p class="text-gray-600">@{{user.username}}</p>
     </div>
-  </footer>
+  </div>
+</div>
 
-</body>
-</html>
+<!-- Área para criar novo post -->
+<div class="bg-white shadow mb-6 p-4 rounded-lg">
+  <form action="/posts/create" method="POST">
+    <div class="mb-3">
+      <textarea name="conteudo" rows="3"
+        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        placeholder="O que está acontecendo?"></textarea>
+    </div>
+    <div class="flex justify-end">
+      <button type="submit"
+        class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition duration-200">
+        Enviar
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Listagem de posts -->
+<div class="space-y-4">
+  {{#each posts}}
+  <div class="bg-white shadow p-4 rounded-lg">
+    <div class="flex justify-between items-start">
+      <div class="flex items-start">
+        <div class="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+          {{#if user.nome}}
+          {{user.nome.[0]}}
+          {{else}}
+          U
+          {{/if}}
+        </div>
+        <div class="ml-3">
+          <h3 class="font-semibold">Usuário</h3>
+          <p class="text-gray-500 text-sm">@{{user.username}}</p>
+        </div>
+      </div>
+
+      {{#if user.id}}
+      <div class="flex space-x-2">
+        <a href="/posts/edit/{{id}}" class="text-blue-500 hover:text-blue-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+          </svg>
+        </a>
+        <form action="/posts/{{id}}" method="POST" class="inline">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="text-red-500 hover:text-red-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd"
+                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                clip-rule="evenodd" />
+            </svg>
+          </button>
+        </form>
+      </div>
+      {{/if}}
+    </div>
+
+    <div class="mt-3 flex flex-col gap-4">
+      <p class="text-gray-800 w-min">{{conteudo}}</p>
+      <p class="text-gray-500 text-sm mt-1 w-full text-end">{{data_criacao}}</p>
+    </div>
+
+    <div class="mt-4 flex space-x-4 text-gray-500">
+      <button class="flex items-center space-x-1 hover:text-blue-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
+            clip-rule="evenodd" />
+        </svg>
+        <span>0</span>
+      </button>
+      <button class="flex items-center space-x-1 hover:text-green-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+            clip-rule="evenodd" />
+        </svg>
+        <span>0</span>
+      </button>
+      <button class="flex items-center space-x-1 hover:text-red-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+            clip-rule="evenodd" />
+        </svg>
+        <span>0</span>
+      </button>
+    </div>
+  </div>
+  {{else}}
+  <div class="bg-white shadow p-6 rounded-lg text-center">
+    <p class="text-gray-500">Nenhum post encontrado. Seja o primeiro a postar!</p>
+  </div>
+  {{/each}}
+</div>
+{{/inline}}
+{{/main}}

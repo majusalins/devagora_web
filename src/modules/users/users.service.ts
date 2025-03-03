@@ -11,7 +11,7 @@ export class UsersService {
     return await servidor.save();
   }
 
-  async findOne(username: string) {
-    return await Usuario.findOne({  });
+  async findOne(email: string) {
+    return await Usuario.findOne({ where: { email } });
   }
 }
