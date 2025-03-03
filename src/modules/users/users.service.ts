@@ -10,4 +10,8 @@ export class UsersService {
     const servidor = Usuario.create({ ...data });
     return await servidor.save();
   }
+
+  async findOne(username: string) {
+    return await Usuario.findOne({  });
+  }
 }
