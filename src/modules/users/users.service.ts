@@ -7,8 +7,8 @@ export class UsersService {
     return await Usuario.find();
   }
   async create(data: any) {
-    const servidor = Usuario.create({ ...data });
-    return await servidor.save();
+    const usuario = Usuario.create({ ...data });
+    return await usuario.save();
   }
 
   async findOne(email: string) {

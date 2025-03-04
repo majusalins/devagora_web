@@ -8,11 +8,11 @@ export const databaseProviders = [
       const dataSource = new DataSource({
         type: 'mysql',
         host: 'localhost',
-        port: 3308,
+        port: 3306,
         username: 'root',
         password: 'root',
         database: 'DevAgora',
-        entities: [__dirname + '/../**/*.entity.{ts,.js}'],
+        entities: [__dirname + '/../**/*.entity.{ts,js}'],
         namingStrategy: new SnakeNamingStrategy(),
         synchronize: false,
       });

@@ -6,10 +6,14 @@ import {
   Render,
   Param,
   Delete,
+  Req,
   Res,
 } from '@nestjs/common';
 
 import { Response } from 'express';
+import { setFlashErrors, setOld } from 'src/common/helpers/flash-errors';
+import { PostsService } from './posts.service';
+import { PostValidator } from './posts.validator';
 
 @Controller('posts')
 export class PostController {
