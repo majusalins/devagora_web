@@ -11,8 +11,8 @@
       {{/if}}
     </div>
     <div class="ml-4">
-      <h2 class="font-bold text-lg">{{user.nome}}</h2>
-      <p class="text-gray-600">@{{user.username}}</p>
+      <h2 class="font-bold text-lg text-start">{{user.nome}}</h2>
+      <p class="text-gray-600">{{user.email}}</p>
     </div>
   </div>
 </div>
@@ -48,8 +48,8 @@
           {{/if}}
         </div>
         <div class="ml-3">
-          <h3 class="font-semibold">Usuário</h3>
-          <p class="text-gray-500 text-sm">@{{user.username}}</p>
+          <h3 class="font-semibold text-start">{{user.nome}}</h3>
+          <p class="text-gray-500 text-sm">{{user.email}}</p>
         </div>
       </div>
 
@@ -76,7 +76,7 @@
     </div>
 
     <div class="mt-3 flex flex-col gap-4">
-      <p class="text-gray-800 w-min">{{conteudo}}</p>
+      <p class="text-gray-800 text-start">{{conteudo}}</p>
       <p class="text-gray-500 text-sm mt-1 w-full text-end">{{data_criacao}}</p>
     </div>
 

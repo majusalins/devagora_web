@@ -6,12 +6,15 @@ export class UsersService {
   async getAll() {
     return await Usuario.find();
   }
-  async create(data: any) {
-    const usuario = Usuario.create({ ...data });
+  async create(data: Usuario) {
+    let usuario = Usuario.create({ ...data });
+
+    usuario.data_cadastro = new Date();
+
     return await usuario.save();
   }
 
-  async findOne(email: string) {
-    return await Usuario.findOne({ where: { email } });
+  async findOne(id: number) {
+    return await Usuario.findOne({ where: { id } });
   }
 }

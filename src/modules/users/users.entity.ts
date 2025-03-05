@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Post } from 'src/modules/posts/posts.entity';
 
 @Entity()
 export class Usuario extends BaseEntity {
@@ -16,5 +17,7 @@ export class Usuario extends BaseEntity {
 
   @Column({ name: 'data_cadastro' })
   data_cadastro: Date;
+
+  data_formatada?: string
 
 }

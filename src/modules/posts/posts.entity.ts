@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Usuario } from 'src/modules/users/users.entity';
 
 @Entity()
 export class Post extends BaseEntity {
@@ -13,5 +14,11 @@ export class Post extends BaseEntity {
 
   @Column({ name: 'conteudo' })
   conteudo: string;
+
+  @Column({ name: 'Usuario_ID_Usuario' })
+  Usuario_ID_Usuario: string;
+
+  @Column({ name: 'Post_Pai_ID' })
+  Post_Pai_ID: string;
 
 }

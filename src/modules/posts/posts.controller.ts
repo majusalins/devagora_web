@@ -14,24 +14,41 @@ import { Response } from 'express';
 import { setFlashErrors, setOld } from 'src/common/helpers/flash-errors';
 import { PostsService } from './posts.service';
 import { PostValidator } from './posts.validator';
+import { Usuario } from '../users/users.entity';
+import { UsersService } from '../users/users.service';
 
 @Controller('posts')
 export class PostController {
-  private posts = [];
+  constructor(private readonly servicePost: PostsService, private readonly serviceUser: UsersService) { }
 
   user = {
-    id: 1,
-    nome: 'Maju',
-    username: 'maju',
+    id: 14,
+    nome: 'Juninho',
+    email: 'Juninho@gmail.com',
   };
 
   @Get()
   @Render('posts/index')
-  index() {
+  async index() {
+
+    let allPosts = await this.servicePost.getAll();
+    let posts = [];
+
+    const users = await this.serviceUser.getAll();
+
+    users.forEach(async (user) => {
+      allPosts.map((post) => {
+        if (Number(post.Usuario_ID_Usuario) === user.id) {
+          posts.push({ ...post, user });
+        }
+      });
+    });
+
+
     return {
       title: 'Lista de Posts',
       user: this.user,
-      posts: this.posts,
+      posts: posts,
     };
   }
 
@@ -42,26 +59,30 @@ export class PostController {
   }
 
   @Post('/create')
-  createPost(@Body() post, @Res() res: Response) {
+  async createPost(@Body() post, @Res() res: Response) {
     const newPost = {
-      id: this.posts.length + 1,
       conteudo: post.conteudo,
       data_criacao: new Date().toLocaleDateString('pt-BR'),
-      user: this.user,
+      Usuario_ID_Usuario: this.user.id,
+      Post_Pai_ID: null,
     };
 
-    this.posts.push(newPost);
+    await this.servicePost.create(newPost);
 
     return res.redirect('/posts');
   }
 
+
+
   @Delete('/:id')
-  deletePost(@Param('id') id: number) {
-    const index = this.posts.findIndex((post) => post.id === id);
-    if (index === -1) {
+  async deletePost(@Param('id') id: number) {
+
+    const post = await this.servicePost.findById(id);
+
+    if (!post) {
       return { message: 'Post não encontrado.' };
     }
-    this.posts.splice(index, 1);
-    return { message: 'Post deletado com sucesso.' };
+
+    await this.servicePost.delete(post);
   }
 }
